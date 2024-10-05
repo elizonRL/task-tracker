@@ -20,6 +20,7 @@ function App() {
       ...notes,
       { conten: newTask, complete: false, id: notes.length + 1 },
     ]);
+    setNewTask('')
   };
 
   return (
