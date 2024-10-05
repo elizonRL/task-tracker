@@ -2,13 +2,42 @@ import { useState } from "react";
 import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [newTask, setNewTask] = useState("");
+
+  const [notes, setNotes] = useState([
+    {
+      conten: "Aprender React",
+      complete: false,
+      id: 1,
+    },
+  ]);
+  const HashChange = (event) => {
+    setNewTask(event.target.value);
+  };
+  const handelSubmit = (event) => {
+    event.preventDefault();
+    setNotes([
+      ...notes,
+      { conten: newTask, complete: false, id: notes.length + 1 },
+    ]);
+  };
 
   return (
     <>
-      <h1>{count}</h1>
-      <button onClick={() => setCount(count + 1)}>Increment</button>
-      <button onClick={() => setCount(count - 1)}>Decrement</button>
+      <h1>Task tacker</h1>
+      <div>
+        <form onSubmit={handelSubmit}>
+          Add note:
+          <input type="text" value={newTask} onChange={HashChange} />
+          <button>add</button>
+        </form>
+      </div>
+      {notes.map((note) => (
+        <div key={note.id}>
+         <input type="checkbox" />
+          <h2>{note.conten}</h2>
+        </div>
+      ))}
     </>
   );
 }
